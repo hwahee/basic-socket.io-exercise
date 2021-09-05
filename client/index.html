@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>socket.io 연습 페이지</title>
+		<style>
+			#output_text {
+				background-color:skyblue;
+			}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('#tell_button').click(function(){
+					console.log('connecting')
+					$.post('/tell_txt', {elem:$('#input_text').val()} , (data, status)=>{
+						console.log('connected')
+					})
+				})
+				$('#knock_button').click(function(){
+					console.log('knocking')
+					$.get('/knock', (data, status)=>{
+						console.log('knocked')
+					})
+				})
+				$('#heat_button').click(function(){
+					console.log('heating bomb')
+					$.post('/heat_bomb', {elem: $('#input_number').val()},(data, status)=>{
+						$('#output_text').text(data)
+						console.log('heated')
+					})
+				})
+			})
+		</script>
+	</head>
+	<body>
+		<input id='input_text' type='text' />
+		<div></div>
+		<input id='tell_button' type='button' value='tell'/>
+		<input id='knock_button' type='button' value='knock'/> 
+		<hr>
+		<input id='input_number' type='number' />
+		<div>
+			<h2 id='output_text'>OUTPUT HERE</h2>
+		</div>
+		<input id='heat_button' type='button' value='HEAT!' />
+	</body>
+</html>
